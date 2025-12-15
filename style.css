@@ -1,0 +1,38 @@
+/* Custom CSS for the Freelance Rate Suite */
+
+/* 1. General Typography & Accessibility */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Custom Scrollbar Styling (Optional, but enhances UX) */
+.scrollbar-hide {
+    /* For Firefox */
+    scrollbar-width: none;
+}
+
+/* For Chrome, Safari, and Edge */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* 3. Custom Transitions (Enhancing the Tailwind Look) */
+.shadow-soft {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Add subtle hover effect to the main calculator sections */
+section {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 4. Admin Toggle Customization (For the admin.html file) */
+#admin-dashboard .p-4 {
+    transition: background-color 0.3s ease;
+}

@@ -1,0 +1,9 @@
+# Node dependencies (always ignore this)
+/node_modules
+
+# Environment variables - THIS HIDES YOUR PASSWORD
+.env
+
+# Log files
+npm-debug.log*
+*.log

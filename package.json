@@ -1,0 +1,16 @@
+{
+  "name": "pro-rate-suite",
+  "version": "1.0.0",
+  "description": "Freelance Rate Calculator with Admin Ad Control",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^17.2.3",
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0"
+  }
+}

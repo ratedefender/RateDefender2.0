@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* Define primary color in case Tailwind CDN loads slowly */
+        .bg-primary { background-color: #0056D2; }
+        .hover\:bg-primary-dark:hover { background-color: #003F9C; }
+        .text-primary { color: #0056D2; }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-primary">Admin Login</h2>
+        
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <input type="password" id="admin-password" placeholder="Enter Admin Password" 
+                   class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-primary focus:border-primary text-lg" 
+                   required>
+            
+            <button type="submit" class="w-full bg-primary text-white p-3 rounded-lg text-lg font-semibold hover:bg-primary-dark transition duration-200">
+                Log In
+            </button>
+            <p id="login-message" class="mt-3 text-sm text-red-500 hidden"></p>
+        </form>
+    </div>
+
+    <div id="admin-dashboard" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg mt-8 hidden">
+        <h2 class="text-2xl font-bold mb-6 text-primary">Ads Control Panel</h2>
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <span class="text-lg font-medium text-gray-800">Global Ads Status</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="ad-toggle" class="sr-only peer" onchange="updateAdsStatus()">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                <span id="status-text" class="ml-3 text-sm font-medium text-gray-900">OFF</span>
+            </label>
+        </div>
+        <p id="message" class="mt-4 text-sm text-green-600"></p>
+        <p class="mt-4 text-xs text-gray-500">Note: Changes may take a minute to propagate to clients due to caching.</p>
+    </div>
+
+    <script>
+        let adminToken = ''; 
+
+        // New function to handle form submission
+        async function handleLogin(event) {
+            // Prevent the default form submission (page reload)
+            event.preventDefault(); 
+            
+            const password = document.getElementById('admin-password').value;
+            const loginMessage = document.getElementById('login-message');
+            
+            loginMessage.classList.add('hidden'); // Clear previous error messages
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Success path
+                    adminToken = password; 
+                    document.getElementById('login-form').parentElement.classList.add('hidden'); // Hide the login container
+                    document.getElementById('admin-dashboard').classList.remove('hidden'); // Show the dashboard
+                    loadAdsStatus();
+                } else {
+                    // Failure path (e.g., 401 Unauthorized)
+                    loginMessage.textContent = 'Login failed: Invalid password or server error.';
+                    loginMessage.classList.remove('hidden');
+                    console.error('Login Failed:', data.message || response.statusText);
+                }
+            } catch (error) {
+                // Network failure path
+                loginMessage.textContent = 'Could not connect to the server. Check if Node.js is running (npm start).';
+                loginMessage.classList.remove('hidden');
+                console.error('Network Error:', error);
+            }
+        }
+
+        async function loadAdsStatus() {
+            // ... (rest of the loadAdsStatus function remains the same)
+            const response = await fetch('/api/settings');
+            const data = await response.json();
+            const toggle = document.getElementById('ad-toggle');
+            const statusText = document.getElementById('status-text');
+
+            toggle.checked = data.ads_enabled;
+            statusText.textContent = data.ads_enabled ? 'ON' : 'OFF';
+            statusText.classList.toggle('text-red-500', !data.ads_enabled);
+            statusText.classList.toggle('text-green-500', data.ads_enabled);
+        }
+
+        async function updateAdsStatus() {
+            // ... (rest of the updateAdsStatus function remains the same)
+            const toggle = document.getElementById('ad-toggle');
+            const newStatus = toggle.checked;
+            const statusText = document.getElementById('status-text');
+            const message = document.getElementById('message');
+
+            const response = await fetch('/api/settings', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': adminToken 
+                },
+                body: JSON.stringify({ ads_enabled: newStatus })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                statusText.textContent = data.ads_enabled ? 'ON' : 'OFF';
+                statusText.classList.toggle('text-red-500', !data.ads_enabled);
+                statusText.classList.toggle('text-green-500', data.ads_enabled);
+                message.textContent = `Success! Ads are now globally ${data.ads_enabled ? 'ENABLED' : 'DISABLED'}.`;
+            } else {
+                alert('Update failed: ' + data.message);
+                // Revert toggle state on failure
+                toggle.checked = !newStatus; 
+            }
+        }
+    </script>
+</body>
+</html>
