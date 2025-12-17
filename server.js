@@ -15,3 +15,4 @@ const SETTINGS_FILE = 'settings.json';
 const SECURE_ADMIN_PASSWORD = config.ADMIN_PASSWORD; // <-- NEW: Load password securely
 
 // ... (rest of server.js remains the same)
+module.exports = app;
