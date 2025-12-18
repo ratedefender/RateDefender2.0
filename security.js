@@ -1,57 +1,27 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
-const { configureSecurityHeaders, apiLimiter } = require('./security');
-const config = require('./config');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-const SETTINGS_FILE = path.join(__dirname, 'settings.json');
+// This function defines the security settings
+function configureSecurityHeaders(app) {
+    app.use(helmet({
+        contentSecurityPolicy: {
+            directives: {
+                "default-src": ["'self'"],
+                "script-src": ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://pagead2.googlesyndication.com"],
+                "style-src": ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
+                "img-src": ["'self'", "data:", "https://pagead2.googlesyndication.com"],
+            },
+        },
+    }));
+    console.log("🛡️ Security headers ready.");
+}
 
-// 1. Setup Security
-configureSecurityHeaders(app);
-
-app.use(bodyParser.json());
-app.use(express.static(__dirname));
-
-// 2. API Routes
-app.get('/api/settings', apiLimiter, (req, res) => {
-    try {
-        if (!fs.existsSync(SETTINGS_FILE)) {
-            fs.writeFileSync(SETTINGS_FILE, JSON.stringify({ ads_enabled: false }));
-        }
-        const data = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
-        res.json(data);
-    } catch (e) {
-        res.status(500).json({ error: "Failed to load settings" });
-    }
+// This limits how many times someone can try to login (Anti-Brute Force)
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, 
+    message: { success: false, message: "Too many requests, please try again later." }
 });
 
-app.post('/api/login', apiLimiter, (req, res) => {
-    const { password } = req.body;
-    if (password === config.ADMIN_PASSWORD) {
-        res.json({ success: true });
-    } else {
-        res.status(401).json({ success: false, message: "Invalid Password" });
-    }
-});
-
-app.post('/api/settings', apiLimiter, (req, res) => {
-    // Basic auth check would go here if you added a token system
-    const { ads_enabled } = req.body;
-    fs.writeFileSync(SETTINGS_FILE, JSON.stringify({ ads_enabled }));
-    res.json({ success: true });
-});
-
-// 3. Serve Frontend
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// 4. Start Server
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-});
-
-module.exports = app; // For Vercel/Render
+// We export these so server.js can use them
+module.exports = { configureSecurityHeaders, apiLimiter };
