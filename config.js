@@ -1,5 +1,7 @@
 require('dotenv').config();
-module.exports = {
+
+const config = {
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
 };
+
 module.exports = config;

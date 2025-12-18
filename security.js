@@ -1,57 +1,57 @@
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+const { configureSecurityHeaders, apiLimiter } = require('./security');
+const config = require('./config');
 
-/**
- * Middleware to configure robust HTTP security headers.
- * @param {object} app - Your Express application instance.
- */
-function configureSecurityHeaders(app) {
-    // 1. Helmet: Sets various HTTP headers to protect against well-known web vulnerabilities.
-    app.use(helmet({
-        // Standard recommended settings for modern apps
-        contentSecurityPolicy: {
-            directives: {
-                // IMPORTANT: You MUST update this to allow your AdSense scripts to load.
-                // Replace 'YOUR_ADSENSE_DOMAIN.com' with the actual domain.
-                'script-src': ["'self'", 'https://cdn.tailwindcss.com', 'https://pagead2.googlesyndication.com'],
-                'frame-ancestors': ["'self'"], // Prevents clickjacking
-                'style-src': ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com'],
-                'default-src': ["'self'"], 
-            },
-        },
-        // Strict-Transport-Security forces HTTPS connections
-        strictTransportSecurity: {
-            maxAge: 31536000,
-            includeSubDomains: true,
-            preload: true
-        },
-        // Prevent browsers from guessing file types (MIME-sniffing)
-        noSniff: true,
-    }));
+const app = express();
+const PORT = process.env.PORT || 3000;
+const SETTINGS_FILE = path.join(__dirname, 'settings.json');
 
-    // 2. X-XSS-Protection is mostly obsolete but harmless to include
-    app.use(helmet.xssFilter());
-    
-    console.log("Security headers (Helmet) configured.");
-}
+// 1. Setup Security
+configureSecurityHeaders(app);
 
-/**
- * Middleware for basic API Rate Limiting.
- * This prevents brute-force attacks and simple Denial-of-Service (DoS) attacks on your APIs.
- * It is applied to the routes that handle communication, like /api/settings and /api/login.
- */
-const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
-    standardHeaders: true,
-    legacyHeaders: false,
-    message: {
-        success: false,
-        message: "Too many requests from this IP, please try again after 15 minutes."
+app.use(bodyParser.json());
+app.use(express.static(__dirname));
+
+// 2. API Routes
+app.get('/api/settings', apiLimiter, (req, res) => {
+    try {
+        if (!fs.existsSync(SETTINGS_FILE)) {
+            fs.writeFileSync(SETTINGS_FILE, JSON.stringify({ ads_enabled: false }));
+        }
+        const data = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
+        res.json(data);
+    } catch (e) {
+        res.status(500).json({ error: "Failed to load settings" });
     }
 });
 
-module.exports = {
-    configureSecurityHeaders,
-    apiLimiter
-};
+app.post('/api/login', apiLimiter, (req, res) => {
+    const { password } = req.body;
+    if (password === config.ADMIN_PASSWORD) {
+        res.json({ success: true });
+    } else {
+        res.status(401).json({ success: false, message: "Invalid Password" });
+    }
+});
+
+app.post('/api/settings', apiLimiter, (req, res) => {
+    // Basic auth check would go here if you added a token system
+    const { ads_enabled } = req.body;
+    fs.writeFileSync(SETTINGS_FILE, JSON.stringify({ ads_enabled }));
+    res.json({ success: true });
+});
+
+// 3. Serve Frontend
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// 4. Start Server
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
+
+module.exports = app; // For Vercel/Render
