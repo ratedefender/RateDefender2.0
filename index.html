@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelance Rate Calculator 2026: Adjust for PPP, Inflation & Upwork Fees | Pro Rate Suite</title>
-    <meta name="description" content="Calculate your true freelance rate using our 2024 Freelance Rate Calculator. Adjust for Purchasing Power Parity (PPP), cover Upwork/Fiverr fees, and calculate your financial Freedom Runway. Essential tools for freelancers.">
-    <meta name="keywords" content="Freelance Rate Calculator 2024, Upwork Fee Calculator, Inflation Adjustment for Freelancers, Purchasing Power Parity, PPP Calculator, Reverse Fee Calculator, Freedom Runway">
-    
+    <title>Freelance Rate Calculator 2025: Adjust for PPP, Inflation & Upwork Fees | Pro Rate Suite</title>
+    <meta name="description" content="Calculate your true freelance rate using our 2025 Freelance Rate Calculator. Adjust for Purchasing Power Parity (PPP), cover Upwork/Fiverr fees, and calculate your financial Freedom Runway. Essential tools for freelancers.">
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary': '#0056D2', // A professional blue
+                        'primary': '#0056D2',
                         'primary-dark': '#003F9C',
                         'input-bg': '#F9FAFB',
                     },
@@ -26,34 +23,6 @@
             }
         }
     </script>
-
-    <link rel="stylesheet" href="style.css"> 
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Freelance Financial Suite",
-      "applicationCategory": "FinancialApplication",
-      "operatingSystem": "All",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "245"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "Essential calculation tools for modern freelancers to ensure fair pay and financial stability.",
-      "softwareHelp": {
-        "@type": "CreativeWork",
-        "url": "#seo-content"
-      }
-    }
-    </script>
-
 </head>
 <body class="bg-gray-50 font-sans antialiased text-gray-800">
 
@@ -68,11 +37,6 @@
         </div>
     </header>
 
-    <div id="leaderboard-ad-container" class="my-6 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 bg-white border border-gray-200" style="min-height: 90px; display: flex; align-items: center; justify-content: center;">
-     <p class="text-gray-400 text-sm">Advertisement Loading... (Debug Mode)</p>
-    </div>
-
-
     <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 mt-8">
         
         <div class="mb-10 text-center">
@@ -84,12 +48,11 @@
             </p>
         </div>
 
-        <div class="md:hidden sticky top-[4.5rem] bg-gray-50 pt-2 pb-2 z-10 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <div class="md:hidden sticky top-[4.5rem] bg-gray-50 pt-2 pb-2 z-10 overflow-x-auto whitespace-nowrap">
             <a href="#ppp-adjuster" class="inline-block px-4 py-2 text-sm font-medium text-white bg-primary rounded-full mr-2 shadow-md transition duration-150">PPP Adjuster</a>
             <a href="#reverse-fee" class="inline-block px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-full mr-2 hover:bg-gray-100 transition duration-150">Reverse Fee</a>
             <a href="#freedom-runway" class="inline-block px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-full hover:bg-gray-100 transition duration-150">Runway</a>
         </div>
-
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
@@ -97,67 +60,80 @@
                 
                 <section id="ppp-adjuster" class="bg-white p-6 sm:p-10 rounded-xl shadow-lg-soft border border-gray-100">
                     <h3 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                        📈 Rate Adjuster: PPP, Inflation & Currency
+                        📈 PPP Rate Calculator
                     </h3>
                     <p class="text-gray-500 mb-6">
-                        Ensure your rate reflects the client's local purchasing power and global inflation, using live exchange rates for accuracy.
+                        Calculate what a rate is truly worth based on Purchasing Power Parity between countries.
                     </p>
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <div>
-                            <label for="myLocation" class="block text-sm font-medium text-gray-700 mb-2">My Location (Low Cost of Living Index)</label>
-                            <input type="text" id="myLocation" value="India" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg" placeholder="e.g., India, Philippines" required>
+                            <label for="ppp-amount" class="block text-sm font-medium text-gray-700">Amount to Convert</label>
+                            <input type="number" id="ppp-amount" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary" placeholder="e.g. 100">
                         </div>
                         <div>
-                            <label for="clientLocation" class="block text-sm font-medium text-gray-700 mb-2">Client Location (High Cost of Living Index)</label>
-                            <input type="text" id="clientLocation" value="USA" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg" placeholder="e.g., USA, UK, Switzerland" required>
-                        </div>
-                        
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="col-span-1">
-                                <label for="baseCurrency" class="block text-sm font-medium text-gray-700 mb-2">My Rate Currency</label>
-                                <select id="baseCurrency" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg appearance-none">
-                                    <option value="USD">USD</option>
-                                    <option value="EUR">EUR</option>
-                                    <option value="GBP">GBP</option>
-                                    <option value="INR">INR</option>
-                                </select>
-                            </div>
-                            <div class="col-span-2">
-                                <label for="currentRate" class="block text-sm font-medium text-gray-700 mb-2">My Current Hourly Rate</label>
-                                <input type="number" id="currentRate" value="25" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg" placeholder="e.g., 25" min="1" required>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="targetCurrency" class="block text-sm font-medium text-gray-700 mb-2">Target/Client Currency for Output</label>
-                            <select id="targetCurrency" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg appearance-none">
-                                <option value="USD">USD - US Dollar</option>
+                            <label for="from-currency" class="block text-sm font-medium text-gray-700">From (Client's Country)</label>
+                            <select id="from-currency" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary">
+                                <option value="USD" selected>USD - US Dollar</option>
                                 <option value="EUR">EUR - Euro</option>
-                                <option value="GBP">GBP - Pound Sterling</option>
+                                <option value="GBP">GBP - British Pound</option>
                                 <option value="CAD">CAD - Canadian Dollar</option>
                                 <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
                                 <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                                <option value="BRL">BRL - Brazilian Real</option>
+                                <option value="MXN">MXN - Mexican Peso</option>
+                                <option value="PHP">PHP - Philippine Peso</option>
+                                <option value="PKR">PKR - Pakistani Rupee</option>
+                                <option value="BDT">BDT - Bangladeshi Taka</option>
+                                <option value="VND">VND - Vietnamese Dong</option>
+                                <option value="THB">THB - Thai Baht</option>
+                                <option value="IDR">IDR - Indonesian Rupiah</option>
+                                <option value="MYR">MYR - Malaysian Ringgit</option>
+                                <option value="SGD">SGD - Singapore Dollar</option>
+                                <option value="ZAR">ZAR - South African Rand</option>
+                                <option value="NGN">NGN - Nigerian Naira</option>
+                                <option value="EGP">EGP - Egyptian Pound</option>
+                                <option value="ARS">ARS - Argentine Peso</option>
+                                <option value="CLP">CLP - Chilean Peso</option>
+                                <option value="COP">COP - Colombian Peso</option>
                             </select>
                         </div>
-
-
-                        <button onclick="calculatePPP()" class="w-full py-4 text-xl font-bold text-white bg-primary rounded-xl hover:bg-primary-dark transition duration-150 shadow-md">
-                            Calculate Adjusted Rate
+                        <div>
+                            <label for="to-currency" class="block text-sm font-medium text-gray-700">To (Your Country)</label>
+                            <select id="to-currency" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                                <option value="INR" selected>INR - Indian Rupee</option>
+                                <option value="BRL">BRL - Brazilian Real</option>
+                                <option value="MXN">MXN - Mexican Peso</option>
+                                <option value="PHP">PHP - Philippine Peso</option>
+                                <option value="PKR">PKR - Pakistani Rupee</option>
+                                <option value="BDT">BDT - Bangladeshi Taka</option>
+                                <option value="VND">VND - Vietnamese Dong</option>
+                                <option value="THB">THB - Thai Baht</option>
+                                <option value="IDR">IDR - Indonesian Rupiah</option>
+                                <option value="MYR">MYR - Malaysian Ringgit</option>
+                                <option value="SGD">SGD - Singapore Dollar</option>
+                                <option value="ZAR">ZAR - South African Rand</option>
+                                <option value="NGN">NGN - Nigerian Naira</option>
+                                <option value="EGP">EGP - Egyptian Pound</option>
+                                <option value="ARS">ARS - Argentine Peso</option>
+                                <option value="CLP">CLP - Chilean Peso</option>
+                                <option value="COP">COP - Colombian Peso</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="calculatePPP()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold">
+                          Calculate Fair Rate
                         </button>
-                    </div>
-
-                    <div id="pppResult" class="mt-8 p-6 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <p class="text-xl font-medium text-green-700 mb-3">Your Fair, Adjusted Rate (Approximate):</p>
-                        <p class="text-5xl font-extrabold text-green-800" id="adjustedRateDisplay">$0.00 / hr</p>
-                        <p class="text-sm text-gray-500 mt-2" id="pppExchangeNotice">Exchange Rate Used: 1.00 USD</p>
-                    </div>
-                    
-                    <button id="generateEmailBtn" onclick="generateNegotiationEmail()" class="mt-4 w-full py-3 text-lg font-semibold text-primary border border-primary rounded-xl hover:bg-primary hover:text-white transition duration-150 hidden">
-                        🤖 Generate Negotiation Email (AI Powered)
-                    </button>
-
-                    <div id="emailOutput" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 text-sm hidden">
-                        <p class="font-bold text-gray-700 mb-2">Your Negotiation Script (Copy/Paste):</p>
-                        <textarea id="emailText" rows="12" class="w-full p-3 bg-white border border-gray-300 rounded-lg font-mono text-gray-800" readonly></textarea>
+                      <div id="ppp-result" class="mt-4"></div>
                     </div>
                 </section>
 
@@ -172,7 +148,7 @@
                         <div class="grid grid-cols-3 gap-4">
                              <div class="col-span-1">
                                 <label for="netTargetCurrency" class="block text-sm font-medium text-gray-700 mb-2">Net Currency</label>
-                                <select id="netTargetCurrency" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg appearance-none">
+                                <select id="netTargetCurrency" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg">
                                     <option value="USD">USD</option>
                                     <option value="EUR">EUR</option>
                                     <option value="GBP">GBP</option>
@@ -186,7 +162,7 @@
                         </div>
                         <div>
                             <label for="platformFee" class="block text-sm font-medium text-gray-700 mb-2">Platform Fee Percentage</label>
-                            <select id="platformFee" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg appearance-none">
+                            <select id="platformFee" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg">
                                 <option value="0.20">Upwork Standard (20%)</option>
                                 <option value="0.10">Fiverr / Lower Tier (10%)</option>
                                 <option value="0.05">High-Volume Upwork (5%)</option>
@@ -194,10 +170,10 @@
                                 <option value="0.25">Custom (25%)</option>
                             </select>
                         </div>
-                        <button onclick="calculateReverseFee()" class="w-full py-4 text-xl font-bold text-white bg-primary rounded-xl hover:bg-primary-dark transition duration-150 shadow-md">
-                            Calculate Client Charge
-                        </button>
-                    </div>
+                        <button type="button" onclick="calculateClientCharge()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold">
+    Calculate Total to Charge Client
+</button>
+<div id="fee-result" class="mt-4"></div>
 
                     <div id="reverseFeeResult" class="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200 hidden">
                         <p class="text-xl font-medium text-yellow-700 mb-3">Client Invoice Amount Needed:</p>
@@ -237,11 +213,6 @@
 
             <aside class="hidden lg:block lg:col-span-1">
                 <div class="sticky top-[6rem] space-y-8">
-                    
-                    <div id="sidebar-rectangle-ad" class="bg-white p-4 rounded-xl shadow-lg-soft border border-gray-100 h-64 flex items-center justify-center">
-                      <p class="text-gray-400 text-sm">Advertisement Loading... (Debug Mode)</p>
-                    </div>
-
                     <div class="bg-white p-6 rounded-xl shadow-lg-soft border border-gray-100">
                         <h4 class="text-xl font-bold text-gray-900 mb-4">Why Pro Rate Suite?</h4>
                         <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm">
@@ -256,26 +227,19 @@
             
         </div>
 
-        <footer id="seo-content" class="mt-20 pt-10 border-t border-gray-200">
+        <footer class="mt-20 pt-10 border-t border-gray-200">
             <h2 class="text-3xl font-bold text-gray-900 mb-6">The Freelance Financial Edge: Master Your Rates in 2025</h2>
-            <div class="prose max-w-none text-gray-600 space-y-4 text-justify">
-                
-                <p>In the dynamic world of freelancing, simply setting a rate based on your local expenses is a recipe for **undercharging**. The modern, global freelancer must use advanced metrics to ensure fair compensation. Our **Freelance Rate Calculator 2025** provides the essential tools to navigate currency fluctuation, platform fees, and inflation.</p>
+            <div class="prose max-w-none text-gray-600 space-y-4">
+                <p>In the dynamic world of freelancing, simply setting a rate based on your local expenses is a recipe for undercharging. The modern, global freelancer must use advanced metrics to ensure fair compensation. Our Freelance Rate Calculator 2025 provides the essential tools to navigate currency fluctuation, platform fees, and inflation.</p>
 
                 <h3 class="text-2xl font-semibold text-gray-800">What is Purchasing Power Parity (PPP)?</h3>
-                <p>Purchasing Power Parity, or **PPP**, is an economic theory that suggests that the exchange rate between two currencies is equal to the ratio of the currencies' purchasing power. In plain terms: $100 in Mumbai buys significantly more goods and services than $100 in New York. The PPP Rate Adjuster tool helps you calculate a fair rate when working with a client in a high-cost-of-living country (like the USA) while you operate from a lower-cost region (like India or the Philippines). If you are charging a client based on their local economy's ability to pay, you will earn a rate that is **inflation-adjusted for freelancers** and ultimately more equitable for your global services. Ignoring PPP means leaving substantial money on the table, as the client's $50/hour rate is easily justifiable in their market, even if it feels astronomical in yours.</p>
+                <p>Purchasing Power Parity (PPP) is an economic theory suggesting that exchange rates between currencies should equalize the purchasing power of different currencies. In simpler terms: $100 in Mumbai buys significantly more goods and services than $100 in New York. The PPP Rate Adjuster tool helps you calculate a fair rate when working with clients in high-cost-of-living countries while you operate from lower-cost regions.</p>
+                
                 <h3 class="text-2xl font-semibold text-gray-800">How to Beat Platform Fees with a Reverse Fee Calculator</h3>
-                <p>Platforms like Upwork and Fiverr are indispensable for finding work, but their service fees (often 10% to 20%) can severely cut into your profits. The **Upwork Fee Calculator** is a crucial tool for professional freelancers. Instead of simply accepting the fee as a loss, you should "reverse engineer" your pricing. The Reverse Fee Calculator determines the gross amount you must charge the client so that your net earnings exactly match your target amount after the platform takes its cut. For example, if you want to net $800 after a 20% fee, you cannot simply charge $960. You must charge a higher amount to cover the percentage-based deduction. Using this calculation legally ensures you receive the income required for your business to be sustainable. Trying to **avoid Upwork fees legally** involves factoring them into your quoted price—a transparent and professional business practice.</p>
+                <p>Platforms like Upwork and Fiverr are indispensable for finding work, but their service fees (often 10% to 20%) can severely cut into your profits. The Reverse Fee Calculator determines the gross amount you must charge the client so that your net earnings exactly match your target amount after the platform takes its cut.</p>
 
                 <h3 class="text-2xl font-semibold text-gray-800">Measuring Your Journey to Financial Independence</h3>
-                <p>The **Freedom Runway Calculator** is perhaps the most important tool for a freelance business owner's mental health and long-term strategy. It quantifies your financial stability by calculating how many months your liquid savings can cover your monthly expenses (or 'burn rate'). A longer runway gives you the confidence to negotiate better rates (using the PPP Adjusted rate), walk away from difficult clients, or invest time in upskilling. Understanding your runway—and continually striving to increase it—is the path to true financial freedom and resilience against economic shocks. Monitoring **freelance inflation rates** should be part of this strategy; as your cost of living increases, your target savings and monthly burn rate will change, necessitating a re-calculation of your financial runway.</p>
-                
-                <p>Our comprehensive suite of tools ensures that you, the expert, are paid like one. Stop guessing your price and start calculating your success with precision.</p>
-
-                <h3 class="text-2xl font-semibold text-gray-800 mt-8">🔐 High-Power Security & Data Integrity Commitment</h3>
-                <p>The **Pro Rate Suite** application is committed to maintaining a secure and reliable environment. Our platform is protected by industry-standard protocols, including **Content Security Policy (CSP)** and **Strict Transport Security (HSTS)** to mitigate common web vulnerabilities such as **Cross-Site Scripting (XSS)** and **clickjacking**. All API endpoints are guarded by a **Rate Limiter** to prevent brute-force login attempts and denial-of-service attacks, ensuring service continuity for all users.</p>
-                
-                <p>We take your privacy seriously: **We do not store any personal, financial, or sensitive user data.** All calculations are performed instantly and locally within your browser. We adhere to defensive cybersecurity best practices to ensure the integrity and accessibility of our service.</p>
+                <p>The Freedom Runway Calculator quantifies your financial stability by calculating how many months your liquid savings can cover your monthly expenses. A longer runway gives you the confidence to negotiate better rates, walk away from difficult clients, or invest time in upskilling.</p>
                 
                 <div class="mt-8 text-center text-sm text-gray-500">
                     <p>&copy; 2025 Pro Rate Suite | Built for the Modern Freelancer.</p>
@@ -286,10 +250,26 @@
     </main>
 
     <script>
-        // Global variables
-        let exchangeRate = 1.0; 
-        
-        // Function to create a currency formatter based on the selected currency
+        // PPP Conversion Factors (Source: World Bank Data / Global Economy)
+        // Values represent how much local currency equals $1 USD in purchasing power.
+        const pppRates = {
+            "USD": 1.0, "EUR": 0.82, "GBP": 0.68, "CAD": 1.22, "AUD": 1.45,
+            "INR": 23.5, "JPY": 90.4, "CNY": 3.9, "AED": 2.1, "AFN": 18.2,
+            "ALL": 42.1, "AMD": 185.0, "ARS": 120.0, "BRL": 2.4, "BDT": 34.5,
+            "BGN": 0.78, "BHD": 0.18, "BND": 0.62, "BOB": 3.2, "BWP": 5.1,
+            "BZD": 1.1, "CHF": 1.15, "CLP": 440.0, "COP": 1450.0, "CRC": 360.0,
+            "CZK": 12.5, "DKK": 6.8, "DOP": 22.4, "DZD": 45.2, "EGP": 7.4,
+            "ETB": 18.5, "GHS": 3.2, "GTQ": 4.1, "HKD": 5.8, "HUF": 145.0,
+            "IDR": 4850.0, "ILS": 3.8, "IQD": 540.0, "ISK": 125.0, "JOD": 0.38,
+            "KES": 48.0, "KRW": 860.0, "KWD": 0.15, "KZT": 160.0, "LKR": 65.0,
+            "MAD": 4.8, "MXN": 9.4, "MYR": 1.6, "NGN": 210.0, "NOK": 9.2,
+            "NPR": 35.0, "NZD": 1.48, "OMR": 0.18, "PEN": 1.8, "PHP": 19.5,
+            "PKR": 45.0, "PLN": 2.1, "QAR": 2.2, "RON": 1.8, "RUB": 28.5,
+            "SAR": 2.1, "SEK": 8.4, "SGD": 0.9, "THB": 13.5, "TRY": 8.5,
+            "TWD": 14.5, "UAH": 11.5, "UGX": 1150.0, "UYU": 24.5, "VND": 8500.0,
+            "ZAR": 7.2
+        };
+
         function getCurrencyFormatter(currencyCode) {
             return new Intl.NumberFormat('en-US', {
                 style: 'currency',
@@ -298,185 +278,43 @@
             });
         }
 
-        // --- Simulated Live Exchange Rate Fetching (Placeholder) ---
-        const LIVE_RATES_PLACEHOLDER = {
-            USD: 1.00,
-            EUR: 0.92, 
-            GBP: 0.79, 
-            CAD: 1.36, 
-            AUD: 1.50, 
-            JPY: 147.00, 
-            INR: 83.00, 
-        };
-        
-        async function fetchLiveExchangeRate(base, target) {
-            if (base === target) return 1.0;
+        function calculatePPP() {
+            console.log("Button clicked! Starting calculation...");
             
-            const rateBase = LIVE_RATES_PLACEHOLDER[base] || 1.0;
-            const rateTarget = LIVE_RATES_PLACEHOLDER[target] || 1.0;
-
-            if (rateBase === 1.0 || rateTarget === 1.0) {
-                console.error(`Missing exchange rate for ${base} or ${target}. Defaulting to 1.0`);
-                return 1.0; 
-            }
-            // Use the ratio of the placeholder USD-based rates
-            return rateTarget / rateBase;
-        }
-
-        // --- AdSense Configuration (MUST BE UPDATED) ---
-        const AD_CLIENT_ID = 'ca-pub-1234567890'; // <<< REPLACE WITH YOUR MAIN CLIENT ID
-        const AD_SLOT_LEADERBOARD = '1111111111';  // <<< REPLACE WITH YOUR LEADERBOARD SLOT ID
-        const AD_SLOT_RECTANGLE = '2222222222';    // <<< REPLACE WITH YOUR RECTANGLE SLOT ID
-
-        function injectAdSenseScript() {
-            if (document.querySelector(`script[src*="${AD_CLIENT_ID}"]`)) return; 
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT_ID}`;
-            script.crossOrigin = 'anonymous';
-            document.head.appendChild(script);
-            console.log('AdSense main script injected.');
-        }
-
-        function renderAd(containerId, slotId, format = 'auto') {
-            const container = document.getElementById(containerId);
-            if (container) {
-                container.innerHTML = `
-                    <ins class="adsbygoogle"
-                        style="display:block;"
-                        data-ad-client="${AD_CLIENT_ID}" 
-                        data-ad-slot="${slotId}"
-                        data-ad-format="${format}"
-                        data-full-width-responsive="true"></ins>
-                `;
-                // Crucial step: Make the container visible and push the ad for rendering
-                container.classList.remove('hidden'); 
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-                console.log(`Ad rendered in container: ${containerId}`);
-            }
-        }
-
-        // --- Ad Status Check and Renderer (Called on Load) ---
-        async function checkAdsStatusAndRender() {
-            try {
-                // Call the server to get the current ad status
-                const response = await fetch('/api/settings');
-                const data = await response.json();
-
-                if (data.ads_enabled) {
-                    injectAdSenseScript();
-                    
-                    // Render the two ad slots if enabled
-                    renderAd('leaderboard-ad-container', AD_SLOT_LEADERBOARD, '728x90');
-                    renderAd('sidebar-rectangle-ad', AD_SLOT_RECTANGLE, '336x280');
-                    
-                } else {
-                    console.log("Ads are disabled by the administrator.");
-                }
-            } catch (error) {
-                console.error('Failed to fetch ad status from server or network issue:', error);
-            }
-        }
-
-
-        // --- CALCULATOR LOGIC START ---
-
-        // --- 1. Tool A: Inflation & PPP Rate Adjuster Logic ---
-        async function calculatePPP() {
-            const myLocation = document.getElementById('myLocation').value.trim();
-            const clientLocation = document.getElementById('clientLocation').value.trim();
-            const baseCurrency = document.getElementById('baseCurrency').value;
-            const targetCurrency = document.getElementById('targetCurrency').value;
-            const currentRate = parseFloat(document.getElementById('currentRate').value);
+            // 1. Get values from HTML
+            const amountInput = document.getElementById('ppp-amount');
+            const fromSelect = document.getElementById('from-currency');
+            const toSelect = document.getElementById('to-currency');
+            const resultDisplay = document.getElementById('ppp-result');
             
-            const resultDiv = document.getElementById('pppResult');
-            const rateDisplay = document.getElementById('adjustedRateDisplay');
-            const exchangeNotice = document.getElementById('pppExchangeNotice');
-            const emailBtn = document.getElementById('generateEmailBtn');
-            const emailOutput = document.getElementById('emailOutput');
-
-            if (!myLocation || !clientLocation || isNaN(currentRate) || currentRate <= 0) {
-                alert("Please ensure all fields are filled correctly for the PPP Adjuster.");
-                resultDiv.classList.add('hidden');
-                emailBtn.classList.add('hidden');
-                emailOutput.classList.add('hidden');
+            // 2. Validate values
+            const amount = parseFloat(amountInput.value);
+            if (isNaN(amount) || amount <= 0) {
+                resultDisplay.innerHTML = `<p class="text-red-500">Please enter a valid number greater than 0.</p>`;
                 return;
             }
-
-            try {
-                exchangeRate = await fetchLiveExchangeRate(baseCurrency, targetCurrency);
-            } catch (error) {
-                exchangeRate = 1.0;
-            }
             
-            // Simplified PPP Multiplier logic for demonstration
-            let pppMultiplier;
-            if (clientLocation.toLowerCase().includes('usa') || clientLocation.toLowerCase().includes('uk') || clientLocation.toLowerCase().includes('europe')) {
-                if (myLocation.toLowerCase().includes('india') || myLocation.toLowerCase().includes('philippines')) {
-                    pppMultiplier = 2.5;
-                } else {
-                    pppMultiplier = 1.8;
-                }
-            } else {
-                pppMultiplier = 1.0;
-            }
-
-            const pppAdjustedRate_BaseCurrency = currentRate * pppMultiplier;
-            const finalAdjustedRate = pppAdjustedRate_BaseCurrency * exchangeRate;
+            const fromCurr = fromSelect.value;
+            const toCurr = toSelect.value;
             
-            const formatter = getCurrencyFormatter(targetCurrency);
-            rateDisplay.textContent = formatter.format(finalAdjustedRate.toFixed(2)) + ' / hr';
-            exchangeNotice.textContent = `Rate in Client's Currency. Exchange Rate (1 ${baseCurrency} ≈ ${exchangeRate.toFixed(4)} ${targetCurrency}) used.`;
-            resultDiv.classList.remove('hidden');
-            emailBtn.classList.remove('hidden');
-            emailOutput.classList.add('hidden');
+            // 3. Get Rates
+            const rateFrom = pppRates[fromCurr] || 1.0;
+            const rateTo = pppRates[toCurr] || 1.0;
             
-            // Store data for the email generator
-            document.getElementById('pppResult').dataset.adjustedRate = finalAdjustedRate.toFixed(2);
-            document.getElementById('pppResult').dataset.clientLoc = clientLocation;
-            document.getElementById('pppResult').dataset.targetCurrency = targetCurrency;
-            document.getElementById('pppResult').dataset.baseCurrency = baseCurrency;
+            // 4. Calculate: (Amount / FromRate) * ToRate
+            const result = (amount / rateFrom) * rateTo;
+            
+            // 5. Update the UI
+            resultDisplay.innerHTML = `
+                <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                    <p class="text-sm text-green-700 font-semibold">Fair Purchasing Power Rate:</p>
+                    <p class="text-3xl font-bold text-green-900">${toCurr} ${result.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+                    <p class="text-xs text-green-600 mt-2">This means ${amount} in ${fromCurr} buys the same as ${result.toFixed(2)} in ${toCurr}.</p>
+                </div>
+            `;
         }
 
-        // 4. The "Fake AI" Negotiation Email Generator
-        function generateNegotiationEmail() {
-            const adjustedRate = document.getElementById('pppResult').dataset.adjustedRate;
-            const myLocation = document.getElementById('myLocation').value.trim();
-            const clientLocation = document.getElementById('pppResult').dataset.clientLoc;
-            const targetCurrency = document.getElementById('pppResult').dataset.targetCurrency;
-            const baseCurrency = document.getElementById('pppResult').dataset.baseCurrency;
-            const currentRate = parseFloat(document.getElementById('currentRate').value).toFixed(2);
-            const emailOutput = document.getElementById('emailOutput');
-            const emailTextarea = document.getElementById('emailText');
-            const formatter = getCurrencyFormatter(targetCurrency);
-            const baseFormatter = getCurrencyFormatter(baseCurrency);
-
-
-            const emailScript = `Subject: Proposal Revision: Updated Rate Based on Market Parity & Scope
-
-Dear [Client Name],
-
-Thank you for the opportunity to work on this project. I'm excited to deliver exceptional results.
-
-Following a comprehensive review of the project scope and industry standards in your local market (${clientLocation}), I am proposing a refined hourly rate of ${formatter.format(adjustedRate)} (calculated from an initial base of ${baseFormatter.format(currentRate)}).
-
-This adjustment is essential for two key reasons:
-
-1.  **Purchasing Power Parity (PPP):** To ensure a fair rate that reflects the cost of living and earning potential in your market (${clientLocation}), as my current rate reflects a lower cost of living region (${myLocation}). This ensures I am compensated for the premium value I deliver globally.
-2.  **Inflation & Industry Benchmarks:** The updated rate aligns with the current market rate for my expertise, accounting for recent freelance inflation.
-
-I am committed to providing the highest quality of work. I am happy to discuss this further.
-
-Best regards,
-
-[Your Name]`;
-
-            emailTextarea.value = emailScript;
-            emailOutput.classList.remove('hidden');
-        }
-
-        // --- 2. Tool B: The "Reverse Fee" Calculator Logic ---
-        async function calculateReverseFee() {
+        function calculateReverseFee() {
             const netTarget = parseFloat(document.getElementById('netTarget').value);
             const feeRate = parseFloat(document.getElementById('platformFee').value);
             const netTargetCurrency = document.getElementById('netTargetCurrency').value;
@@ -490,31 +328,14 @@ Best regards,
                 return;
             }
 
-            // Formula: ClientCharge = NetTarget / (1 - FeeRate)
             const clientCharge = netTarget / (1 - feeRate);
+            const formatter = getCurrencyFormatter(netTargetCurrency);
             
-            let finalClientCharge = clientCharge;
-            let currentExchangeRate = 1.0;
-
-            const clientPaymentCurrency = 'USD'; // Assumption for platform payment
-            
-            if (netTargetCurrency !== clientPaymentCurrency) {
-                 try {
-                    currentExchangeRate = await fetchLiveExchangeRate(netTargetCurrency, clientPaymentCurrency);
-                    // Convert the final needed charge (in USD) back to the target display currency
-                    finalClientCharge = clientCharge * currentExchangeRate; 
-                } catch (error) {
-                    currentExchangeRate = 1.0;
-                }
-            }
-            
-            const formatter = getCurrencyFormatter(clientPaymentCurrency);
-            chargeDisplay.textContent = formatter.format(finalClientCharge.toFixed(2));
-            feeExchangeNotice.textContent = `Displayed in Client's payment currency (${clientPaymentCurrency}). Exchange Rate (1 ${netTargetCurrency} ≈ ${currentExchangeRate.toFixed(4)} ${clientPaymentCurrency}) used.`;
+            chargeDisplay.textContent = formatter.format(clientCharge);
+            feeExchangeNotice.textContent = `You need to charge ${formatter.format(clientCharge)} to net ${formatter.format(netTarget)} after ${(feeRate * 100).toFixed(0)}% platform fees.`;
             resultDiv.classList.remove('hidden');
         }
 
-        // --- 3. Tool C: The "Freedom Runway" Calculator Logic ---
         function calculateFreedomRunway() {
             const savings = parseFloat(document.getElementById('savings').value);
             const monthlyBurn = parseFloat(document.getElementById('monthlyBurn').value);
@@ -528,24 +349,72 @@ Best regards,
             }
 
             const runwayMonths = savings / monthlyBurn;
-
             runwayDisplay.textContent = runwayMonths.toFixed(2) + ' Months';
             resultDiv.classList.remove('hidden');
         }
 
-        // Smooth Scrolling for Tab/Nav Clicks
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
-
-
-        // EXECUTION START: Call the ad check function on page load
-        window.onload = checkAdsStatusAndRender;
     </script>
+    <script>
+// 1. PPP Data Object
+const pppRates = {
+    "USD": 1.0, "EUR": 0.82, "GBP": 0.68, "CAD": 1.22, "AUD": 1.45, "INR": 23.5, "JPY": 90.4 // ... (keep your full list here)
+};
+
+// 2. PPP CALCULATION FUNCTION
+function calculatePPP() {
+    console.log("PPP Button Clicked");
+    const amount = parseFloat(document.getElementById('ppp-amount').value);
+    const fromCurr = document.getElementById('from-currency').value;
+    const toCurr = document.getElementById('to-currency').value;
+    const resultDiv = document.getElementById('ppp-result');
+
+    if (!amount || amount <= 0) {
+        resultDiv.innerHTML = "<p class='text-red-500'>Please enter an amount.</p>";
+        return;
+    }
+
+    const rateFrom = pppRates[fromCurr] || 1.0;
+    const rateTo = pppRates[toCurr] || 1.0;
+    const finalValue = (amount / rateFrom) * rateTo;
+
+    resultDiv.innerHTML = `
+        <div class="p-4 bg-blue-50 border-l-4 border-blue-500 rounded text-blue-900">
+            <strong>Equates to:</strong> ${toCurr} ${finalValue.toLocaleString(undefined, {minimumFractionDigits: 2})}
+        </div>`;
+}
+
+// 3. REVERSE FEE CALCULATION FUNCTION (The "Client Charge" button)
+function calculateClientCharge() {
+    console.log("Fee Button Clicked");
+    const targetAmount = parseFloat(document.getElementById('target-amount').value); // What you want to keep
+    const feePercentage = parseFloat(document.getElementById('platform-fee').value); // e.g. 10
+    const resultDiv = document.getElementById('fee-result');
+
+    if (!targetAmount || isNaN(feePercentage)) {
+        resultDiv.innerHTML = "<p class='text-red-500'>Please enter both amount and fee.</p>";
+        return;
+    }
+
+    // Formula: Total = Target / (1 - (Fee / 100))
+    const totalToCharge = targetAmount / (1 - (feePercentage / 100));
+    const feeAmount = totalToCharge - targetAmount;
+
+    resultDiv.innerHTML = `
+        <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded text-green-900">
+            <p>To keep <strong>$${targetAmount.toFixed(2)}</strong>, you must charge:</p>
+            <p class="text-2xl font-bold">$${totalToCharge.toFixed(2)}</p>
+            <p class="text-xs mt-1">(Platform takes $${feeAmount.toFixed(2)} as a ${feePercentage}% fee)</p>
+        </div>`;
+}
+</script>
 </body>
 </html>
