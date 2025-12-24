@@ -58,6 +58,7 @@
             
             <div class="lg:col-span-2 space-y-12">
                 
+                <!-- PPP CALCULATOR -->
                 <section id="ppp-adjuster" class="bg-white p-6 sm:p-10 rounded-xl shadow-lg-soft border border-gray-100">
                     <h3 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                         📈 PPP Rate Calculator
@@ -130,13 +131,14 @@
                                 <option value="COP">COP - Colombian Peso</option>
                             </select>
                         </div>
-                        <button type="button" onclick="calculatePPP()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold">
+                        <button type="button" id="calc-ppp-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition duration-150">
                           Calculate Fair Rate
                         </button>
-                      <div id="ppp-result" class="mt-4"></div>
+                        <div id="ppp-result" class="mt-4"></div>
                     </div>
                 </section>
 
+                <!-- REVERSE FEE CALCULATOR -->
                 <section id="reverse-fee" class="bg-white p-6 sm:p-10 rounded-xl shadow-lg-soft border border-gray-100">
                     <h3 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                         💰 Reverse Fee Calculator
@@ -146,7 +148,7 @@
                     </p>
                     <div class="space-y-6">
                         <div class="grid grid-cols-3 gap-4">
-                             <div class="col-span-1">
+                            <div class="col-span-1">
                                 <label for="netTargetCurrency" class="block text-sm font-medium text-gray-700 mb-2">Net Currency</label>
                                 <select id="netTargetCurrency" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg">
                                     <option value="USD">USD</option>
@@ -170,18 +172,19 @@
                                 <option value="0.25">Custom (25%)</option>
                             </select>
                         </div>
-                        <button type="button" onclick="calculateClientCharge()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold">
-    Calculate Total to Charge Client
-</button>
-<div id="fee-result" class="mt-4"></div>
+                        <button type="button" id="calc-fee-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold transition duration-150">
+                            Calculate Total to Charge Client
+                        </button>
 
-                    <div id="reverseFeeResult" class="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200 hidden">
-                        <p class="text-xl font-medium text-yellow-700 mb-3">Client Invoice Amount Needed:</p>
-                        <p class="text-5xl font-extrabold text-yellow-800" id="clientChargeDisplay">$0.00</p>
-                        <p class="text-sm text-gray-500 mt-2" id="feeExchangeNotice">Exchange Rate Used: 1.00 USD</p>
+                        <div id="reverseFeeResult" class="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200 hidden">
+                            <p class="text-xl font-medium text-yellow-700 mb-3">Client Invoice Amount Needed:</p>
+                            <p class="text-5xl font-extrabold text-yellow-800" id="clientChargeDisplay">$0.00</p>
+                            <p class="text-sm text-gray-500 mt-2" id="feeExchangeNotice">Exchange Rate Used: 1.00 USD</p>
+                        </div>
                     </div>
                 </section>
 
+                <!-- FREEDOM RUNWAY CALCULATOR -->
                 <section id="freedom-runway" class="bg-white p-6 sm:p-10 rounded-xl shadow-lg-soft border border-gray-100">
                     <h3 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                         🚀 Freedom Runway Calculator
@@ -198,7 +201,7 @@
                             <label for="monthlyBurn" class="block text-sm font-medium text-gray-700 mb-2">Average Monthly Expenses / Burn Rate (USD)</label>
                             <input type="number" id="monthlyBurn" value="2500" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary shadow-soft bg-input-bg text-lg" placeholder="e.g., 2500" min="1" required>
                         </div>
-                        <button onclick="calculateFreedomRunway()" class="w-full py-4 text-xl font-bold text-white bg-primary rounded-xl hover:bg-primary-dark transition duration-150 shadow-md">
+                        <button type="button" id="calc-runway-btn" class="w-full py-4 text-xl font-bold text-white bg-primary hover:bg-primary-dark rounded-xl transition duration-150 shadow-md">
                             Calculate Runway
                         </button>
                     </div>
@@ -250,171 +253,146 @@
     </main>
 
     <script>
-        // PPP Conversion Factors (Source: World Bank Data / Global Economy)
-        // Values represent how much local currency equals $1 USD in purchasing power.
-        const pppRates = {
-            "USD": 1.0, "EUR": 0.82, "GBP": 0.68, "CAD": 1.22, "AUD": 1.45,
-            "INR": 23.5, "JPY": 90.4, "CNY": 3.9, "AED": 2.1, "AFN": 18.2,
-            "ALL": 42.1, "AMD": 185.0, "ARS": 120.0, "BRL": 2.4, "BDT": 34.5,
-            "BGN": 0.78, "BHD": 0.18, "BND": 0.62, "BOB": 3.2, "BWP": 5.1,
-            "BZD": 1.1, "CHF": 1.15, "CLP": 440.0, "COP": 1450.0, "CRC": 360.0,
-            "CZK": 12.5, "DKK": 6.8, "DOP": 22.4, "DZD": 45.2, "EGP": 7.4,
-            "ETB": 18.5, "GHS": 3.2, "GTQ": 4.1, "HKD": 5.8, "HUF": 145.0,
-            "IDR": 4850.0, "ILS": 3.8, "IQD": 540.0, "ISK": 125.0, "JOD": 0.38,
-            "KES": 48.0, "KRW": 860.0, "KWD": 0.15, "KZT": 160.0, "LKR": 65.0,
-            "MAD": 4.8, "MXN": 9.4, "MYR": 1.6, "NGN": 210.0, "NOK": 9.2,
-            "NPR": 35.0, "NZD": 1.48, "OMR": 0.18, "PEN": 1.8, "PHP": 19.5,
-            "PKR": 45.0, "PLN": 2.1, "QAR": 2.2, "RON": 1.8, "RUB": 28.5,
-            "SAR": 2.1, "SEK": 8.4, "SGD": 0.9, "THB": 13.5, "TRY": 8.5,
-            "TWD": 14.5, "UAH": 11.5, "UGX": 1150.0, "UYU": 24.5, "VND": 8500.0,
-            "ZAR": 7.2
-        };
+        // ============================================
+        // FREELANCE CALCULATOR APP - MODULAR CODE
+        // ============================================
+        
+        (function() {
+            'use strict';
+            
+            // PPP Conversion Factors
+            const pppRates = {
+                "USD": 1.0, "EUR": 0.82, "GBP": 0.68, "CAD": 1.22, "AUD": 1.45,
+                "INR": 23.5, "JPY": 90.4, "CNY": 3.9, "AED": 2.1, "AFN": 18.2,
+                "ALL": 42.1, "AMD": 185.0, "ARS": 120.0, "BRL": 2.4, "BDT": 34.5,
+                "BGN": 0.78, "BHD": 0.18, "BND": 0.62, "BOB": 3.2, "BWP": 5.1,
+                "BZD": 1.1, "CHF": 1.15, "CLP": 440.0, "COP": 1450.0, "CRC": 360.0,
+                "CZK": 12.5, "DKK": 6.8, "DOP": 22.4, "DZD": 45.2, "EGP": 7.4,
+                "ETB": 18.5, "GHS": 3.2, "GTQ": 4.1, "HKD": 5.8, "HUF": 145.0,
+                "IDR": 4850.0, "ILS": 3.8, "IQD": 540.0, "ISK": 125.0, "JOD": 0.38,
+                "KES": 48.0, "KRW": 860.0, "KWD": 0.15, "KZT": 160.0, "LKR": 65.0,
+                "MAD": 4.8, "MXN": 9.4, "MYR": 1.6, "NGN": 210.0, "NOK": 9.2,
+                "NPR": 35.0, "NZD": 1.48, "OMR": 0.18, "PEN": 1.8, "PHP": 19.5,
+                "PKR": 45.0, "PLN": 2.1, "QAR": 2.2, "RON": 1.8, "RUB": 28.5,
+                "SAR": 2.1, "SEK": 8.4, "SGD": 0.9, "THB": 13.5, "TRY": 8.5,
+                "TWD": 14.5, "UAH": 11.5, "UGX": 1150.0, "UYU": 24.5, "VND": 8500.0,
+                "ZAR": 7.2
+            };
 
-        function getCurrencyFormatter(currencyCode) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: currencyCode,
-                minimumFractionDigits: 2,
-            });
-        }
-
-        function calculatePPP() {
-            console.log("Button clicked! Starting calculation...");
-            
-            // 1. Get values from HTML
-            const amountInput = document.getElementById('ppp-amount');
-            const fromSelect = document.getElementById('from-currency');
-            const toSelect = document.getElementById('to-currency');
-            const resultDisplay = document.getElementById('ppp-result');
-            
-            // 2. Validate values
-            const amount = parseFloat(amountInput.value);
-            if (isNaN(amount) || amount <= 0) {
-                resultDisplay.innerHTML = `<p class="text-red-500">Please enter a valid number greater than 0.</p>`;
-                return;
-            }
-            
-            const fromCurr = fromSelect.value;
-            const toCurr = toSelect.value;
-            
-            // 3. Get Rates
-            const rateFrom = pppRates[fromCurr] || 1.0;
-            const rateTo = pppRates[toCurr] || 1.0;
-            
-            // 4. Calculate: (Amount / FromRate) * ToRate
-            const result = (amount / rateFrom) * rateTo;
-            
-            // 5. Update the UI
-            resultDisplay.innerHTML = `
-                <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded">
-                    <p class="text-sm text-green-700 font-semibold">Fair Purchasing Power Rate:</p>
-                    <p class="text-3xl font-bold text-green-900">${toCurr} ${result.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-                    <p class="text-xs text-green-600 mt-2">This means ${amount} in ${fromCurr} buys the same as ${result.toFixed(2)} in ${toCurr}.</p>
-                </div>
-            `;
-        }
-
-        function calculateReverseFee() {
-            const netTarget = parseFloat(document.getElementById('netTarget').value);
-            const feeRate = parseFloat(document.getElementById('platformFee').value);
-            const netTargetCurrency = document.getElementById('netTargetCurrency').value;
-            const resultDiv = document.getElementById('reverseFeeResult');
-            const chargeDisplay = document.getElementById('clientChargeDisplay');
-            const feeExchangeNotice = document.getElementById('feeExchangeNotice');
-
-            if (isNaN(netTarget) || netTarget <= 0) {
-                alert("Please enter a valid target net earning.");
-                resultDiv.classList.add('hidden');
-                return;
+            // Currency Formatter
+            function getCurrencyFormatter(currencyCode) {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: currencyCode,
+                    minimumFractionDigits: 2,
+                });
             }
 
-            const clientCharge = netTarget / (1 - feeRate);
-            const formatter = getCurrencyFormatter(netTargetCurrency);
-            
-            chargeDisplay.textContent = formatter.format(clientCharge);
-            feeExchangeNotice.textContent = `You need to charge ${formatter.format(clientCharge)} to net ${formatter.format(netTarget)} after ${(feeRate * 100).toFixed(0)}% platform fees.`;
-            resultDiv.classList.remove('hidden');
-        }
-
-        function calculateFreedomRunway() {
-            const savings = parseFloat(document.getElementById('savings').value);
-            const monthlyBurn = parseFloat(document.getElementById('monthlyBurn').value);
-            const resultDiv = document.getElementById('runwayResult');
-            const runwayDisplay = document.getElementById('runwayMonthsDisplay');
-
-            if (isNaN(savings) || savings < 0 || isNaN(monthlyBurn) || monthlyBurn <= 0) {
-                alert("Please enter valid savings and monthly burn amounts.");
-                resultDiv.classList.add('hidden');
-                return;
-            }
-
-            const runwayMonths = savings / monthlyBurn;
-            runwayDisplay.textContent = runwayMonths.toFixed(2) + ' Months';
-            resultDiv.classList.remove('hidden');
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+            // PPP Calculator
+            function calculatePPP() {
+                const amountInput = document.getElementById('ppp-amount');
+                const fromSelect = document.getElementById('from-currency');
+                const toSelect = document.getElementById('to-currency');
+                const resultDisplay = document.getElementById('ppp-result');
+                
+                const amount = parseFloat(amountInput.value);
+                if (isNaN(amount) || amount <= 0) {
+                    resultDisplay.innerHTML = `<p class="text-red-500 font-semibold">⚠️ Please enter a valid amount greater than 0.</p>`;
+                    return;
                 }
-            });
-        });
+                
+                const fromCurr = fromSelect.value;
+                const toCurr = toSelect.value;
+                
+                const rateFrom = pppRates[fromCurr] || 1.0;
+                const rateTo = pppRates[toCurr] || 1.0;
+                
+                const result = (amount / rateFrom) * rateTo;
+                
+                resultDisplay.innerHTML = `
+                    <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                        <p class="text-sm text-green-700 font-semibold">✅ Fair Purchasing Power Rate:</p>
+                        <p class="text-3xl font-bold text-green-900">${toCurr} ${result.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+                        <p class="text-xs text-green-600 mt-2">This means ${amount} ${fromCurr} buys the same as ${result.toFixed(2)} ${toCurr}.</p>
+                    </div>
+                `;
+            }
+
+            // Reverse Fee Calculator
+            function calculateReverseFee() {
+                const netTarget = parseFloat(document.getElementById('netTarget').value);
+                const feeRate = parseFloat(document.getElementById('platformFee').value);
+                const netTargetCurrency = document.getElementById('netTargetCurrency').value;
+                const resultDiv = document.getElementById('reverseFeeResult');
+                const chargeDisplay = document.getElementById('clientChargeDisplay');
+                const feeExchangeNotice = document.getElementById('feeExchangeNotice');
+
+                if (isNaN(netTarget) || netTarget <= 0) {
+                    alert("⚠️ Please enter a valid target net earning.");
+                    resultDiv.classList.add('hidden');
+                    return;
+                }
+
+                const clientCharge = netTarget / (1 - feeRate);
+                const feeAmount = clientCharge - netTarget;
+                const formatter = getCurrencyFormatter(netTargetCurrency);
+                
+                chargeDisplay.textContent = formatter.format(clientCharge);
+                feeExchangeNotice.textContent = `Platform takes ${formatter.format(feeAmount)} as a ${(feeRate * 100).toFixed(0)}% fee. You net ${formatter.format(netTarget)}.`;
+                resultDiv.classList.remove('hidden');
+            }
+
+            // Freedom Runway Calculator
+            function calculateFreedomRunway() {
+                const savings = parseFloat(document.getElementById('savings').value);
+                const monthlyBurn = parseFloat(document.getElementById('monthlyBurn').value);
+                const resultDiv = document.getElementById('runwayResult');
+                const runwayDisplay = document.getElementById('runwayMonthsDisplay');
+
+                if (isNaN(savings) || savings < 0 || isNaN(monthlyBurn) || monthlyBurn <= 0) {
+                    alert("⚠️ Please enter valid savings and monthly burn amounts.");
+                    resultDiv.classList.add('hidden');
+                    return;
+                }
+
+                const runwayMonths = savings / monthlyBurn;
+                runwayDisplay.textContent = runwayMonths.toFixed(2) + ' Months';
+                resultDiv.classList.remove('hidden');
+            }
+
+            // Smooth Scroll for Anchor Links
+            function initSmoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                });
+            }
+
+            // Initialize App
+            function init() {
+                // Attach Event Listeners
+                document.getElementById('calc-ppp-btn').addEventListener('click', calculatePPP);
+                document.getElementById('calc-fee-btn').addEventListener('click', calculateReverseFee);
+                document.getElementById('calc-runway-btn').addEventListener('click', calculateFreedomRunway);
+                
+                // Enable smooth scrolling
+                initSmoothScroll();
+                
+                console.log('✅ Pro Rate Suite Calculator Initialized');
+            }
+
+            // Run on DOM Ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
     </script>
-    <script>
-// 1. PPP Data Object
-const pppRates = {
-    "USD": 1.0, "EUR": 0.82, "GBP": 0.68, "CAD": 1.22, "AUD": 1.45, "INR": 23.5, "JPY": 90.4 // ... (keep your full list here)
-};
-
-// 2. PPP CALCULATION FUNCTION
-function calculatePPP() {
-    console.log("PPP Button Clicked");
-    const amount = parseFloat(document.getElementById('ppp-amount').value);
-    const fromCurr = document.getElementById('from-currency').value;
-    const toCurr = document.getElementById('to-currency').value;
-    const resultDiv = document.getElementById('ppp-result');
-
-    if (!amount || amount <= 0) {
-        resultDiv.innerHTML = "<p class='text-red-500'>Please enter an amount.</p>";
-        return;
-    }
-
-    const rateFrom = pppRates[fromCurr] || 1.0;
-    const rateTo = pppRates[toCurr] || 1.0;
-    const finalValue = (amount / rateFrom) * rateTo;
-
-    resultDiv.innerHTML = `
-        <div class="p-4 bg-blue-50 border-l-4 border-blue-500 rounded text-blue-900">
-            <strong>Equates to:</strong> ${toCurr} ${finalValue.toLocaleString(undefined, {minimumFractionDigits: 2})}
-        </div>`;
-}
-
-// 3. REVERSE FEE CALCULATION FUNCTION (The "Client Charge" button)
-function calculateClientCharge() {
-    console.log("Fee Button Clicked");
-    const targetAmount = parseFloat(document.getElementById('target-amount').value); // What you want to keep
-    const feePercentage = parseFloat(document.getElementById('platform-fee').value); // e.g. 10
-    const resultDiv = document.getElementById('fee-result');
-
-    if (!targetAmount || isNaN(feePercentage)) {
-        resultDiv.innerHTML = "<p class='text-red-500'>Please enter both amount and fee.</p>";
-        return;
-    }
-
-    // Formula: Total = Target / (1 - (Fee / 100))
-    const totalToCharge = targetAmount / (1 - (feePercentage / 100));
-    const feeAmount = totalToCharge - targetAmount;
-
-    resultDiv.innerHTML = `
-        <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded text-green-900">
-            <p>To keep <strong>$${targetAmount.toFixed(2)}</strong>, you must charge:</p>
-            <p class="text-2xl font-bold">$${totalToCharge.toFixed(2)}</p>
-            <p class="text-xs mt-1">(Platform takes $${feeAmount.toFixed(2)} as a ${feePercentage}% fee)</p>
-        </div>`;
-}
-</script>
 </body>
 </html>
